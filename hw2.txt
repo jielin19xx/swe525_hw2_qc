@@ -1,0 +1,90 @@
+Part C.
+You should write your homework in a file called hw2.txt. Submit your homework via git as described in the last question. Put your git link in the homework.
+
+a.	Create a new git repository somewhere in your filesystem, and configure a remote (called whatever you want, 
+
+1.	What command did you use to configure the remote?
+Here I create a remote named hw2qc by using the following command
+Git remote add hw2qc https://github.com/jielin19xx/afs.git
+The following are some detail usage of git remote command
+Add new remote
+git remote add [alias] [url]
+for example
+$ git remote
+$ git remote add github git@github.com:schacon/hw.git
+$ git remote -v
+github	git@github.com:schacon/hw.git (fetch)
+github	git@github.com:schacon/hw.git (push)
+Rename remote aliases
+git remote rename [old-alias] [new-alias]
+for example
+$ git remote add github git@github.com:schacon/hw.git
+$ git remote -v
+github	git@github.com:schacon/hw.git (fetch)
+github	git@github.com:schacon/hw.git (push)
+$ git remote rename github origin
+$ git remote -v
+origin	git@github.com:schacon/hw.git (fetch)
+origin	git@github.com:schacon/hw.git (push)
+Update an existing remote URL
+git remote set-url
+for example
+$ git remote -v
+github	git@github.com:schacon/hw.git (fetch)
+github	git@github.com:schacon/hw.git (push)
+origin	git://github.com/pjhyett/hw.git (fetch)
+origin	git://github.com/pjhyett/hw.git (push)
+$ git remote set-url origin git://github.com/github/git-reference.git
+$ git remote -v
+github	git@github.com:schacon/hw.git (fetch)
+github	git@github.com:schacon/hw.git (push)
+origin	git://github.com/github/git-reference.git (fetch)
+origin	git://github.com/github/git-reference.git (push)
+
+2.	Instead of creating a new git repository and configuring it with this remote, I could have asked you to git clone the repo from afs. If you had done so, what would the output of git remote -v be?
+Ans:
+The command will show the information about the remote from afs.
+The name of the remote and the githublink
+ 
+b.	Run git fetch remotename (substituting your remote name for remotename).
+
+1.	Did anything appear in your working directory? Why?
+
+2.	Update your local master branch with the remote one, and give the command you used to do so.
+$ git fetch hw2qc master
+
+3.	Your working directory should have been updated. You should check that. That means the master branch was updated on the remote. But it's possible that when we ran git fetch, we fetched other branches as well! How could we (i.e. what command could we use) find all the branches we may have gotten from the remote?
+$ git branch -a
+
+4.	Spoiler: there's another branch. Check it out, find the file on that branch, and give the first five letters of that file as well as the command you used to checkout the branch. NOTE: It's very bad practice to directly git checkout the remote-tracking branch. Instead, try to checkout the branch so that it creates a local branch based on the remote-tracking branch. If you're not sure how (it's pretty easy to guess, though), you can look it up.
+$ git checkout -b feature origin/feature
+
+5.	You're going to be submitting your homework on the master branch, so you may want to git checkout back there.
+$ git checkout master
+
+c.	What is a bare repository? What makes it different from normal repositories? In what situations is it used?
+Repositories created with git init --bare are called bare repos. They are structured a bit differently from working directories. First of all, they contain no working or checked out copy of your source files. And second, bare repos store git revision history of your repo in the root folder of your repository instead of in a .git subfolder. Note… bare repositories are customarily given a .git extension.
+
+Well, a working repository created with git init is for… working. It is where you will actually edit, add and delete files and git commit to save your changes. If you are starting a project in a folder on your dev machine where you will add, edit and delete files of your project, use “git init”. Note: if you git clone a repository you will be given a working repository with the .git folder and copies of the working files for editing.
+
+A bare repository created with git init --bare is for… sharing. If you are collaborating with a team of developers, and need a place to share changes to a repo, then you will want to create a bare repository in centralized place where all users can push their changes (often the easy choice is github.com). Because git is a distributed version control system, no one will directly edit files in the shared centralized repository. Instead developers will clone the shared bare repo, make changes locally in their working copies of the repo, then push back to the shared bare repo to make their changes available to other users.
+
+Because no one ever makes edits directly to files in the shared bare repo, a working tree is not needed. In fact the working tree would just get in way and cause conflicts as users push code to the repository. This is why bare repositories exist and have no working tree.
+
+d.	In lecture, I was careful to explain the two-step procedure of using git fetch and git merge remotename/branchname to get commits from a remote. When would this be a good idea as opposed to simply doing git pull remotename branchname? Briefly discuss remote-tracking branches and their relevance in your answer.
+Fetch will download any changes from the remote* branch, updating your repository data, but leaving your local* branch unchanged.
+
+pull will perform a fetch and additionally merge the changes into your local branch.
+
+What's the difference? pull updates you local branch with changes from the pulled branch. A fetch does not advance your local branch.
+
+This is particularly useful if you need to keep your repository up to date, but are working on something that might break if you update your files.
+
+e.	I didn't ask you to do this, but suppose I asked you to make a commit on the 'other' branch. If I wanted you to push this branch, what command would you use?
+Git push remotename other
+
+f.	Submit this homework by typing your answers to these questions in a file called hw5.txt. You should commit this on the master branch of your repository. Most importantly, make sure to push the master branch!
+
+
+
+
